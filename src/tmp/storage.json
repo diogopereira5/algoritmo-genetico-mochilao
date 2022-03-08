@@ -1,0 +1,74 @@
+{
+    "config": {
+        "max_capacity": 80000,
+        "population_size": 100,
+        "generations": 1000
+    },
+    "products": [
+        {
+            "name": "Macbook Air",
+            "value": 7899,
+            "weight": 1250
+        },
+        {
+            "name": "Macbook Pro",
+            "value": 9499,
+            "weight": 1800
+        },
+        {
+            "name": "Notebook Samsung",
+            "value": 3999,
+            "weight": 2900
+        },
+        {
+            "name": "Notebook Lenovo",
+            "value": 2849,
+            "weight": 2900
+        },
+        {
+            "name": "iPhone 12",
+            "value": 4835,
+            "weight": 160
+        },
+        {
+            "name": "iPhone 11",
+            "value": 3779,
+            "weight": 150
+        },
+        {
+            "name": "Microondas",
+            "value": 559,
+            "weight": 15000
+        },
+        {
+            "name": "Geladeira Electrolux",
+            "value": 2979,
+            "weight": 54000
+        },
+        {
+            "name": "Geladeira Brastamp",
+            "value": 3879,
+            "weight": 65000
+        },
+        {
+            "name": "TV LG 50",
+            "value": 2699,
+            "weight": 18000
+        },
+        {
+            "name": "TV LG 32",
+            "value": 1549,
+            "weight": 9000
+        },
+        {
+            "name": "Cafeteira",
+            "value": 399,
+            "weight": 2500
+        },
+        {
+            "name": "Maquina de lavar",
+            "value": 1688,
+            "weight": 37500
+        }
+    ]
+}
