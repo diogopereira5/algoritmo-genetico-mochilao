@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.ts",
-    "test": "nodemon app.ts"
+    "start": "nodemon app.ts"
   },
   "author": "Diogo Pereira",
   "license": "ISC",
