@@ -68,31 +68,24 @@ export function calculateFitness(population: PopulationTypes[], products: Produc
 export function crossover(population: PopulationTypes[]) {
 
     var data: PopulationTypes[] = [];
-    //pegar 2 melhores individuos e faz a reprodução
-    for (let i = 0; i < Storage.config.population_size; i++) {
-        const individuo1 = population[0].individual;
-        const individuo2 = population[1].individual;
 
-        const size = individuo1.length; //tamanho do cromossomo
-
-        const newIndividual: Number[] = [];
-
-        //gera um novo individuo com metade de cada individuo
-        for (let j = 0; j < size; j++) {
-            if (j < (size / 2)) {
-                newIndividual.push(individuo1[j])
-            } else {
-                newIndividual.push(individuo2[j])
-            }
+    //remove individuos com fitness == 0
+    for (let i = population.length; i >= 0; i--) {
+        if (population[i]?.fitness == 0) {
+            population.pop();
         }
-
-        //add ao array de nova população
-        data.push({
-            id: population[i].id,
-            individual: newIndividual
-        });
-
     }
+
+    if (population.length === 0) {
+        console.log("Nenhum individuo bom nesta geração!");
+    }
+
+    //escolhe em mode roleta 2 individuos para cruzamento
+    const index1 = rollete(population);
+    const index2 = rollete(population, index1);
+
+    //ponto de corte
+    const cutoff = population[index1].individual.length;
 
     return data
 }
@@ -119,4 +112,48 @@ export function mutation(population: PopulationTypes[]) {
 
 function randomIntFromInterval(min: number, max: number) { // min and max included 
     return Number(Math.floor(Math.random() * (max - min + 1)) + min)
+}
+
+function rollete(population: PopulationTypes[], differentNumber = -1) {
+
+    //pegar soma total do fitness
+    const fitnessTotal = sumFitness(population);
+    //gerar numero aleatorio dando preferencias para os maiores fitness
+    const random = randomIntFromInterval(0, fitnessTotal);
+
+    var index = 0;
+    var sum = 0;
+
+    if (population.length === 0) {
+        return index;
+    }
+
+    // [11111111111111|2222222|333|4]
+    //Roleta fica responsavel para pegar o index do elemento cujo valor do fitness escolhido aleatoriamente
+    do {
+        sum += Number(population[index].fitness);
+        if (sum < random) {
+            index++;
+        }
+    } while (sum < random)
+
+    //valida se numero é repetido
+    if (index == differentNumber) {
+        if (index === 0) {
+            index++;
+        } else {
+            index--;
+        }
+    }
+
+    //retorna o index
+    return index;
+}
+
+function sumFitness(population: PopulationTypes[]) {
+    var sum = 0;
+    for (let item of population) {
+        sum += Number(item.fitness);
+    }
+    return sum;
 }

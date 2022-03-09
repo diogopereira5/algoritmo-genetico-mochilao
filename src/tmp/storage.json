@@ -1,8 +1,8 @@
 {
     "config": {
-        "max_capacity": 80000,
+        "max_capacity": 100000,
         "population_size": 100,
-        "generations": 1000
+        "generations": 100
     },
     "products": [
         {

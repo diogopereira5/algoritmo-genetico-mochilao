@@ -5,7 +5,7 @@ import Algorithm from './src'
 const app = express()
 
 //start algotithm
-Algorithm();
+Algorithm()
 
 //renderiza html
 // app.get('/', function (req, res) {
