@@ -12,34 +12,34 @@ function Algorithm() {
     var generation = 0;
 
     console.log("Calculando dados...");
-    
+
     //repete
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < Storage.config.generations; i++) {
         population = crossover(population);
         population = mutation(population);
         population = calculateFitness(population, products);
 
-        // const bestFitness = best.fitness || 0;
-        // const bestFitnessAtual = population[0].fitness || 0;
-        // if (bestFitness < bestFitnessAtual) {
-        //     best = population[0];
-        //     generation = i + 1;
-        // }
+        const bestFitness = best.fitness || 0;
+        const bestFitnessAtual = population[0].fitness || 0;
+        if (bestFitness < bestFitnessAtual) {
+            best = population[0];
+            generation = i + 1;
+        }
     }
 
-    // console.log("\n---------------------------------------------------------------");
-    // console.log(`Os melhores produtos foram: (Geração: ${generation}, individuo: ${Number(best.id) + 1})\n`);
-    // for (let i = 0; i < best.individual.length; i++) {
-    //     if (best.individual[i] === 1) {
-    //         console.log(`${products[i].name} no valor de R$${products[i].value}`);
-    //     }
-    // }
+    console.log("\n---------------------------------------------------------------");
+    console.log(`Os melhores produtos foram: (Geração: ${generation}, individuo: ${Number(best.id) + 1})\n`);
+    for (let i = 0; i < best.individual.length; i++) {
+        if (best.individual[i] === 1) {
+            console.log(`${products[i].name} no valor de R$${products[i].value}`);
+        }
+    }
 
-    // const ocupation = Number(best.weight);
-    // console.log("\n");
-    // console.log(`Ocupou ${Number(ocupation / 1000).toFixed(2)}Kg de ${Number(Storage.config.max_capacity / 1000).toFixed(2)}Kg`);
-    // console.log(`No total de R$${best.fitness}`);
-    // console.log("---------------------------------------------------------------");
+    const ocupation = Number(best.weight);
+    console.log("\n");
+    console.log(`Ocupou ${Number(ocupation / 1000).toFixed(2)}Kg de ${Number(Storage.config.max_capacity / 1000).toFixed(2)}Kg`);
+    console.log(`No total de R$${best.fitness}`);
+    console.log("---------------------------------------------------------------");
 }
 
 export default Algorithm;

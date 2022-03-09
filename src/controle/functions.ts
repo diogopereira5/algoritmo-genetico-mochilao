@@ -2,11 +2,11 @@ import Storage from "../tmp/storage.json";
 import { ProductTypes } from "../@types/productTypes";
 import { PopulationTypes } from "../@types/populationTypes";
 
-export function createPopulation(products: ProductTypes[]) {
+export function createPopulation(products: ProductTypes[], size = Storage.config.population_size) {
 
     var population: PopulationTypes[] = [];
 
-    for (let i = 0; i < Storage.config.population_size; i++) {
+    for (let i = 0; i < size; i++) {
         var data: Number[] = [];
         for (let itens of products) {
             const value = Math.random() < 0.5 ? 0 : 1; //gera numero aleaotiro entre 1 e 0 (tem - não tem)
@@ -69,6 +69,8 @@ export function crossover(population: PopulationTypes[]) {
 
     var data: PopulationTypes[] = [];
 
+    const sizeIndividuo = population[0].individual.length;
+
     //remove individuos com fitness == 0
     for (let i = population.length; i >= 0; i--) {
         if (population[i]?.fitness == 0) {
@@ -85,7 +87,46 @@ export function crossover(population: PopulationTypes[]) {
     const index2 = rollete(population, index1);
 
     //ponto de corte
-    const cutoff = population[index1].individual.length;
+    const cutoff = randomIntFromInterval(0, (sizeIndividuo - 1));
+
+    var newIndividuo1 = [];
+    var newIndividuo2 = [];
+
+    for (let i = 0; i < sizeIndividuo; i++) {
+        if (i < cutoff) {
+            newIndividuo1.push(population[index1].individual[i])
+            newIndividuo2.push(population[index2].individual[i])
+        } else {
+            newIndividuo1.push(population[index2].individual[i])
+            newIndividuo2.push(population[index1].individual[i])
+        }
+    }
+
+    //criar dois novos filhos
+    data.push({
+        id: 1,
+        individual: newIndividuo1
+    })
+    data.push({
+        id: 2,
+        individual: newIndividuo2
+    })
+
+    //mantem os melhores
+    data.push(...population)
+
+    //se populacao for maior que capacidade total, remove os ultimos individuos
+    if (Storage.config.population_size < data.length) {
+        do {
+            data.pop();
+        } while (data.length > Storage.config.population_size)
+    }
+
+    //add o restante aleaotiramente
+    if (Storage.config.population_size > data.length) {
+        const newPopulation = createPopulation(Storage.products, (Storage.config.population_size - data.length))
+        data.push(...newPopulation);
+    }
 
     return data
 }
