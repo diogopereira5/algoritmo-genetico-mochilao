@@ -128,6 +128,11 @@ export function crossover(population: PopulationTypes[]) {
         data.push(...newPopulation);
     }
 
+    //organizar id
+    for (let i = 0; i < data.length; i++) {
+        data[i].id = i;
+    }
+
     return data
 }
 

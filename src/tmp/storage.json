@@ -1,8 +1,8 @@
 {
     "config": {
-        "max_capacity": 100000,
+        "max_capacity": 120000,
         "population_size": 100,
-        "generations": 100
+        "generations": 10000
     },
     "products": [
         {
@@ -54,6 +54,11 @@
             "name": "TV LG 50",
             "value": 2699,
             "weight": 18000
+        },
+        {
+            "name": "TV LG 47",
+            "value": 1999,
+            "weight": 14000
         },
         {
             "name": "TV LG 32",
